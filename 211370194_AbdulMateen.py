@@ -60,7 +60,7 @@ def a_star_search(graph, start, goal):
 
             if neighbor in explored:
                 continue
-            
+
             new_cost = cost + distance
             heapq.heappush(frontier, (new_cost + graph.get_heuristic(neighbor), new_cost, neighbor, path + [neighbor]))
 
@@ -68,8 +68,8 @@ def a_star_search(graph, start, goal):
 
 def main():
     graph = load_graph('romaniamap.txt')
-    start = input("Start node: ").capitalize()
-    destination = input("Destination node: ").capitalize()
+    start = input("Please enter name of the starting city: ").capitalize()
+    destination = input("Please enter name of the destination city: ").capitalize()
 
     if start not in graph.nodes:
         print(f"Start node '{start}' does not exist in the graph.")
@@ -84,6 +84,7 @@ def main():
     if path is None:
         print("NO PATH FOUND")
     else:
+        print("\n\n----------Following is the information of your path and the total distance----------\n")
         print("Path:", " -> ".join(path))
         print("Total distance:", total_distance, "km")
 
