@@ -70,5 +70,4 @@ def main():
         print("Path:", " -> ".join(path))
         print("Total distance:", total_distance, "km")
 
-if __name__ == "__main__":
-    main()
+main()
