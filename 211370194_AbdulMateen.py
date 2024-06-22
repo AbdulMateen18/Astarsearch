@@ -60,8 +60,16 @@ def a_star_search(graph, start, goal):
 
 def main():
     graph = load_graph('romaniamap.txt')
-    start = input("Start node: ")
-    destination = input("Destination node: ")
+    start = input("Start node: ").capitalize()
+    destination = input("Destination node: ").capitalize()
+
+    if start not in graph.nodes:
+        print(f"Start node '{start}' does not exist in the graph.")
+        return 
+    
+    if destination not in graph.nodes:
+        print(f"Destination node '{destination}' does not exist in the graph.")
+        return
 
     path, total_distance = a_star_search(graph, start, destination)
     if path is None:
