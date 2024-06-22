@@ -57,8 +57,10 @@ def a_star_search(graph, start, goal):
             return path, cost
 
         for neighbor, distance in graph.get_neighbors(current).items():
+
             if neighbor in explored:
                 continue
+            
             new_cost = cost + distance
             heapq.heappush(frontier, (new_cost + graph.get_heuristic(neighbor), new_cost, neighbor, path + [neighbor]))
 
