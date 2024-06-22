@@ -72,6 +72,7 @@ def main():
         return
 
     path, total_distance = a_star_search(graph, start, destination)
+    
     if path is None:
         print("NO PATH FOUND")
     else:
