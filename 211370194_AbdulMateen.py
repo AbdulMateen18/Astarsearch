@@ -15,6 +15,8 @@ class Graph:
 
     def get_heuristic(self, node):
         return self.nodes[node]['heuristic']
+    
+#  function for loading data from text file into a graph
 
 def load_graph(filename):
     graph = Graph()
