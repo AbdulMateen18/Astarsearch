@@ -20,7 +20,10 @@ class Graph:
     
 #  function for loading data from text file into a graph
 
-def load_graph(filename):
+"""
+    following code was working fine but there was an edge case for cities name having spaces in them
+
+    def load_graph(filename):
     graph = Graph()
 
     with open(filename, 'r') as file:
@@ -35,6 +38,40 @@ def load_graph(filename):
                 neighbor = parts[i]
                 distance = int(parts[i + 1])
                 graph.add_edge(node, neighbor, distance)
+
+    return graph
+
+"""
+def load_graph(filename):
+    graph = Graph()
+
+    with open(filename, 'r') as file:
+        for line in file:
+            parts = line.strip().split()
+            # Attempt to find the heuristic value, which is the first integer
+            for i, part in enumerate(parts):
+                if part.isdigit():
+                    heuristic_index = i
+                    break
+
+            node = ' '.join(parts[:heuristic_index])  # City name
+            heuristic = int(parts[heuristic_index])
+            graph.add_node(node, heuristic)
+
+            # Process edges
+            edges_parts = parts[heuristic_index + 1:]  # Everything after the heuristic value
+            i = 0
+            while i < len(edges_parts):
+                # Assuming the next integer found is always a distance
+                # and everything before it (since the last found distance) is the neighbor city name
+                if edges_parts[i].isdigit():
+                    distance = int(edges_parts[i])
+                    neighbor = ' '.join(edges_parts[:i])  # Neighbor name might contain a space
+                    graph.add_edge(node, neighbor, distance)
+                    edges_parts = edges_parts[i+1:]  # Move past the current neighbor and distance
+                    i = 0  # Reset index for the new sublist
+                else:
+                    i += 1
 
     return graph
 
