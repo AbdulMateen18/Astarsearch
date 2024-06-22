@@ -32,6 +32,8 @@ def load_graph(filename):
                 graph.add_edge(node, neighbor, distance)
     return graph
 
+# A* search algorithm starts from below:
+
 def a_star_search(graph, start, goal):
     open_set = []
     heapq.heappush(open_set, (0 + graph.get_heuristic(start), 0, start, [start]))
