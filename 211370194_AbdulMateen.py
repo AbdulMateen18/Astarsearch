@@ -1,5 +1,7 @@
 import heapq
 
+# Graph class for cities' map
+
 class Graph:
     def __init__(self):
         self.nodes = {}
@@ -20,41 +22,45 @@ class Graph:
 
 def load_graph(filename):
     graph = Graph()
+
     with open(filename, 'r') as file:
+
         for line in file:
             parts = line.strip().split()
             node = parts[0]
             heuristic = int(parts[1])
             graph.add_node(node, heuristic)
+
             for i in range(2, len(parts), 2):
                 neighbor = parts[i]
                 distance = int(parts[i + 1])
                 graph.add_edge(node, neighbor, distance)
+
     return graph
 
 # A* search algorithm starts from below:
 
 def a_star_search(graph, start, goal):
-    open_set = []
-    heapq.heappush(open_set, (0 + graph.get_heuristic(start), 0, start, [start]))
-    closed_set = set()
+    frontier = []
+    heapq.heappush(frontier, (0 + graph.get_heuristic(start), 0, start, [start]))
+    explored = set()
 
-    while open_set:
-        _, cost, current, path = heapq.heappop(open_set)
+    while frontier:
+        _, cost, current, path = heapq.heappop(frontier)
         
-        if current in closed_set:
+        if current in explored:
             continue
 
-        closed_set.add(current)
+        explored.add(current)
 
         if current == goal:
             return path, cost
 
         for neighbor, distance in graph.get_neighbors(current).items():
-            if neighbor in closed_set:
+            if neighbor in explored:
                 continue
             new_cost = cost + distance
-            heapq.heappush(open_set, (new_cost + graph.get_heuristic(neighbor), new_cost, neighbor, path + [neighbor]))
+            heapq.heappush(frontier, (new_cost + graph.get_heuristic(neighbor), new_cost, neighbor, path + [neighbor]))
 
     return None, None
 
@@ -72,7 +78,7 @@ def main():
         return
 
     path, total_distance = a_star_search(graph, start, destination)
-    
+
     if path is None:
         print("NO PATH FOUND")
     else:
