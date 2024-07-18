@@ -1,6 +1,6 @@
 # A\* Search Algorithm Implementation
 
-This repository contains an implementation of the A\* search algorithm for finding the shortest path between two cities on a map. The graph representation and search algorithm are implemented in Python.
+This repository contains an implementation of the A\* search algorithm for finding the shortest path between two cities on a map (Romania map in this case, with is provided as an input). The graph representation and search algorithm are implemented in Python.
 
 ## Table of Contents
 
